@@ -1,0 +1,235 @@
+{
+  "name": "sfcc-impex-explorer",
+  "displayName": "SFCC Impex Explorer",
+  "description": "Explora, edita y gestiona carpetas Impex y Logs de SFCC sandbox directamente en el navegador de ficheros de VS Code v\u00eda dw.json",
+  "version": "1.0.2",
+  "publisher": "javier-fernandez",
+  "engines": {
+    "vscode": "^1.70.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "keywords": [
+    "sfcc",
+    "salesforce",
+    "commerce cloud",
+    "demandware",
+    "impex",
+    "webdav"
+  ],
+  "activationEvents": [
+    "onStartupFinished",
+    "onView:sfccImpexExplorer",
+    "workspaceContains:**/dw.json",
+    "workspaceContains:**/webdav.json",
+    "onCommand:sfcc-impex.refresh",
+    "onCommand:sfcc-impex.selectConfigFile"
+  ],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "viewsContainers": {
+      "activitybar": []
+    },
+    "views": {
+      "explorer": [
+        {
+          "id": "sfccImpexExplorer",
+          "name": "SFCC Impex",
+          "icon": "$(cloud)",
+          "contextualTitle": "SFCC Impex Explorer"
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "sfcc-impex.refresh",
+        "title": "SFCC Impex: Refrescar",
+        "icon": "$(refresh)"
+      },
+      {
+        "command": "sfcc-impex.openFile",
+        "title": "SFCC Impex: Abrir archivo"
+      },
+      {
+        "command": "sfcc-impex.uploadFile",
+        "title": "SFCC Impex: Subir archivo a esta carpeta...",
+        "icon": "$(cloud-upload)"
+      },
+      {
+        "command": "sfcc-impex.downloadFile",
+        "title": "SFCC Impex: Descargar a local...",
+        "icon": "$(cloud-download)"
+      },
+      {
+        "command": "sfcc-impex.createFolder",
+        "title": "SFCC Impex: Nueva carpeta...",
+        "icon": "$(new-folder)"
+      },
+      {
+        "command": "sfcc-impex.deleteItem",
+        "title": "SFCC Impex: Eliminar",
+        "icon": "$(trash)"
+      },
+      {
+        "command": "sfcc-impex.renameItem",
+        "title": "SFCC Impex: Renombrar",
+        "icon": "$(edit)"
+      },
+      {
+        "command": "sfcc-impex.copyRemotePath",
+        "title": "SFCC Impex: Copiar ruta remota",
+        "icon": "$(copy)"
+      },
+      {
+        "command": "sfcc-impex.mountWorkspaceFolder",
+        "title": "SFCC Impex: Montar como carpeta del Workspace",
+        "icon": "$(folder-active)"
+      },
+      {
+        "command": "sfcc-impex.switchRoot",
+        "title": "SFCC Impex: Cambiar directorio ra\u00edz (Impex / Logs)",
+        "icon": "$(arrow-swap)"
+      },
+      {
+        "command": "sfcc-impex.reloadConfig",
+        "title": "SFCC Impex: Recargar dw.json",
+        "icon": "$(gear)"
+      },
+      {
+        "command": "sfcc-impex.selectConfigFile",
+        "title": "SFCC Impex: Seleccionar archivo dw.json...",
+        "icon": "$(file)"
+      },
+      {
+        "command": "sfcc-impex.checkForUpdates",
+        "title": "SFCC Impex: Buscar actualizaciones...",
+        "icon": "$(cloud-download)"
+      }
+    ],
+    "menus": {
+      "view/title": [
+        {
+          "command": "sfcc-impex.refresh",
+          "when": "view == sfccImpexExplorer",
+          "group": "navigation@1"
+        },
+        {
+          "command": "sfcc-impex.uploadFile",
+          "when": "view == sfccImpexExplorer",
+          "group": "navigation@2"
+        },
+        {
+          "command": "sfcc-impex.createFolder",
+          "when": "view == sfccImpexExplorer",
+          "group": "navigation@3"
+        },
+        {
+          "command": "sfcc-impex.switchRoot",
+          "when": "view == sfccImpexExplorer",
+          "group": "navigation@4"
+        },
+        {
+          "command": "sfcc-impex.mountWorkspaceFolder",
+          "when": "view == sfccImpexExplorer",
+          "group": "navigation@5"
+        },
+        {
+          "command": "sfcc-impex.reloadConfig",
+          "when": "view == sfccImpexExplorer",
+          "group": "2_config"
+        },
+        {
+          "command": "sfcc-impex.selectConfigFile",
+          "when": "view == sfccImpexExplorer",
+          "group": "2_config@2"
+        },
+        {
+          "command": "sfcc-impex.checkForUpdates",
+          "when": "view == sfccImpexExplorer",
+          "group": "2_config@3"
+        }
+      ],
+      "view/item/context": [
+        {
+          "command": "sfcc-impex.uploadFile",
+          "when": "view == sfccImpexExplorer && viewItem == impex-directory",
+          "group": "1_actions@1"
+        },
+        {
+          "command": "sfcc-impex.createFolder",
+          "when": "view == sfccImpexExplorer && viewItem == impex-directory",
+          "group": "1_actions@2"
+        },
+        {
+          "command": "sfcc-impex.downloadFile",
+          "when": "view == sfccImpexExplorer",
+          "group": "1_actions@3"
+        },
+        {
+          "command": "sfcc-impex.renameItem",
+          "when": "view == sfccImpexExplorer",
+          "group": "2_modify@1"
+        },
+        {
+          "command": "sfcc-impex.deleteItem",
+          "when": "view == sfccImpexExplorer",
+          "group": "2_modify@2"
+        },
+        {
+          "command": "sfcc-impex.copyRemotePath",
+          "when": "view == sfccImpexExplorer",
+          "group": "3_utility@1"
+        }
+      ]
+    },
+    "configuration": {
+      "type": "object",
+      "title": "SFCC Impex Explorer",
+      "properties": {
+        "sfccImpex.defaultRoot": {
+          "type": "string",
+          "default": "/on/demandware.servlet/webdav/Sites/Impex",
+          "description": "Ruta ra\u00edz de WebDAV por defecto (ej: /on/demandware.servlet/webdav/Sites/Impex o /on/demandware.servlet/webdav/Sites/Logs)"
+        },
+        "sfccImpex.confirmDelete": {
+          "type": "boolean",
+          "default": true,
+          "description": "Pedir confirmaci\u00f3n antes de eliminar archivos o carpetas en la sandbox"
+        },
+        "sfccImpex.autoMountWorkspace": {
+          "type": "boolean",
+          "default": false,
+          "description": "Montar autom\u00e1ticamente Impex como carpeta en el explorador de archivos del workspace al iniciar"
+        },
+        "sfccImpex.githubRepo": {
+          "type": "string",
+          "default": "jfernandezs-hiberuscom/vstudio-sfcc-impex-explorer",
+          "description": "Repositorio de GitHub para actualizaciones autom\u00e1ticas (ej: usuario/repositorio)"
+        }
+      }
+    },
+    "viewsWelcome": [
+      {
+        "view": "sfccImpexExplorer",
+        "contents": "No se ha detectado configuraci\u00f3n de sandbox SFCC en el workspace.\\nPara conectar, aseg\u00farate de tener un archivo dw.json o selecci\u00f3nalo manualmente:\\n[Seleccionar dw.json](command:sfcc-impex.selectConfigFile)\\n[Recargar](command:sfcc-impex.reloadConfig)"
+      }
+    ]
+  },
+  "scripts": {
+    "build": "node esbuild.js",
+    "watch": "node esbuild.js --watch",
+    "install-local": "node scripts/install-local.js"
+  },
+  "devDependencies": {
+    "@types/node": "^18.11.18",
+    "@types/vscode": "^1.70.0",
+    "esbuild": "^0.20.2",
+    "typescript": "^5.4.5"
+  },
+  "author": "Javier Fernandez",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jfernandezs-hiberuscom/vstudio-sfcc-impex-explorer.git"
+  }
+}
