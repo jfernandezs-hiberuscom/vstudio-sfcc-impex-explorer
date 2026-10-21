@@ -2,7 +2,7 @@
   "name": "sfcc-impex-explorer",
   "displayName": "SFCC Impex Explorer",
   "description": "Explora, edita y gestiona carpetas Impex y Logs de SFCC sandbox directamente en el navegador de ficheros de VS Code v\u00eda dw.json",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "publisher": "javier-fernandez",
   "engines": {
     "vscode": "^1.70.0"
@@ -24,7 +24,8 @@
     "workspaceContains:**/dw.json",
     "workspaceContains:**/webdav.json",
     "onCommand:sfcc-impex.refresh",
-    "onCommand:sfcc-impex.selectConfigFile"
+    "onCommand:sfcc-impex.selectConfigFile",
+    "onCommand:sfcc-impex.checkForUpdates"
   ],
   "main": "./dist/extension.js",
   "contributes": {
