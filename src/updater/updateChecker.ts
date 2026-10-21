@@ -19,27 +19,19 @@ interface GitHubRelease {
 
 export class UpdateChecker {
   public static async check(context: vscode.ExtensionContext, manual = false): Promise<void> {
+    const DEFAULT_REPO = "jfernandezs-hiberuscom/vstudio-sfcc-impex-explorer";
     const config = vscode.workspace.getConfiguration("sfccImpex");
-    let repo = config.get<string>("githubRepo", "").trim();
+    let repo = (config.get<string>("githubRepo") || DEFAULT_REPO).trim() || DEFAULT_REPO;
 
-    if (!repo) {
-      if (manual) {
-        const inputRepo = await vscode.window.showInputBox({
-          prompt: "Introduce el repositorio de GitHub (formato: usuario/repositorio)",
-          placeHolder: "ejemplo: mi-usuario/vscode-sfcc-impex"
-        });
-        if (inputRepo && inputRepo.trim()) {
-          repo = inputRepo.trim();
-          await config.update("githubRepo", repo, vscode.ConfigurationTarget.Global);
-        } else {
-          return;
-        }
-      } else {
-        return;
+    let currentVersion = "1.0.0";
+    try {
+      const ext = vscode.extensions.getExtension("javier-fernandez.sfcc-impex-explorer");
+      if (ext && ext.packageJSON && ext.packageJSON.version) {
+        currentVersion = ext.packageJSON.version;
+      } else if (context.extension?.packageJSON?.version) {
+        currentVersion = context.extension.packageJSON.version;
       }
-    }
-
-    const currentVersion = context.extension?.packageJSON?.version || "1.0.0";
+    } catch (e) {}
 
     try {
       const release = await this.fetchLatestRelease(repo);
